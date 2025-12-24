@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ирина Полухина | Профессиональный документовед</title>
+
+    <style>
+        :root {
+            --bg-body: #FFFFFF;
+            --bg-card: #FFFFFF;
+
+            --hero-gradient-start: #E8F4FD;
+            --hero-gradient-end: #CFE5F9;
+
+            --text-primary: #002147;
+            --text-dark: #262D33;
+            --text-grey: #858FA0;
+
+            --accent-core: #002147;
+            --accent-bright: #1E4E8C;
+
+            --border-ui: #D1E3F6;
+
+            --container-width: 1200px;
+            --header-height: 130px;
+
+            --radius-btn: 50px;
+            --radius-card: 20px;
+
+            --shadow-soft: 0 10px 40px rgba(0, 33, 71, 0.08);
+
+            --font-main: 'Times New Roman', Times, serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-size: 18px;
+            overflow-x: hidden;
+            padding-top: var(--header-height);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1, h2, h3 { font-weight: normal; line-height: 1.2; color: var(--accent-core); text-align: center; }
+        h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 50px; font-style: italic; position: relative; display: inline-block; width: 100%; }
+        h2::after { content: ''; display: block; width: 80px; height: 2px; background: var(--text-primary); margin: 20px auto 0; }
+        p { margin-bottom: 15px; }
+
+        .btn {
+            display: inline-block; padding: 14px 35px; background: var(--accent-core); color: #fff;
+            font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
+            border: 1px solid var(--accent-core); cursor: pointer; transition: all 0.3s ease;
+            border-radius: var(--radius-btn); font-weight: bold; box-shadow: 0 5px 15px rgba(0,33,71,0.2); text-align: center;
+        }
+        .btn:hover { background: #fff; color: var(--accent-core); transform: translateY(-2px); }
+
+        .section-padding { padding: 90px 0; background: #fff; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            height: var(--header-height);
+            background: rgba(232, 244, 253, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-ui);
+            z-index: 1000;
+            display: flex; align-items: center;
+            transition: height 0.3s;
+        }
+        .header-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 10mm;
+            max-width: 60%;
+            transition: opacity 0.3s;
+        }
+        .logo-container:hover { opacity: 0.8; }
+
+        .logo-img {
+            height: 65px;
+            width: 65px;
+            display: block;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background-color: #fff;
+            object-fit: contain;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo-text-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            font-family: var(--font-main);
+        }
+
+        .logo-name {
+            color: var(--text-dark);
+            font-size: 1.5rem;
+            line-height: 1;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .logo-role {
+            color: var(--text-grey);
+            font-size: 1.1rem;
+            font-weight: normal;
+            font-style: italic;
+            line-height: 1;
+        }
+
+        .nav { display: flex; gap: 30px; align-items: center; }
+        .nav a {
+            text-decoration: none; color: var(--text-primary);
+            font-size: 1.1rem; text-transform: uppercase; font-weight: bold;
+            letter-spacing: 0.5px; border-bottom: 1px solid transparent; transition: 0.3s;
+            font-family: var(--font-main);
+        }
+        .nav a:hover { border-color: var(--accent-core); }
+
+        .header-btn-desktop { display: inline-block; }
+        .mobile-btn { display: none; background: none; border: none; font-size: 2rem; color: var(--text-primary); cursor: pointer; padding: 10px; }
+
+        .mobile-menu {
+            display: none; position: fixed; top: var(--header-height); left: 0; width: 100%;
+            background: #fff; padding: 30px 20px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            flex-direction: column; gap: 20px; border-bottom: 1px solid var(--border-ui);
+            transform: translateY(-150%); transition: transform 0.4s ease;
+            z-index: 999; display: flex;
+        }
+        .mobile-menu.active { transform: translateY(0); }
+        .mobile-link { font-size: 1.2rem; text-transform: uppercase; font-weight: bold; color: var(--text-primary); text-decoration: none; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; display: block; }
+
+        .hero {
+            min-height: 85vh;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; position: relative; z-index: 1;
+            background: radial-gradient(circle at center, var(--hero-gradient-start) 0%, var(--hero-gradient-end) 100%);
+        }
+
+        .hero-content {
+            max-width: 1300px; padding: 20px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 60px;
+            align-items: center;
+            text-align: left;
+        }
+
+        .hero-img-wrapper { display: flex; justify-content: center; }
+        .hero-img-wrapper img {
+            width: 100%;
+            max-width: 65%;
+            height: auto;
+            border-radius: var(--radius-card);
+            box-shadow: 0 20px 50px rgba(0,33,71,0.15);
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-text-wrapper { display: flex; flex-direction: column; align-items: flex-start; }
+
+        .hero h1 {
+            font-size: clamp(1rem, 2vw, 1.6rem);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-align: left;
+            position: relative;
+        }
+
+        .hero h1::after {
+            content: ''; display: block; width: 80px; height: 2px;
+            background: var(--accent-bright); margin-top: 15px;
+        }
+
+        .hero-line-main { display: block; font-weight: bold; margin-bottom: 5px; letter-spacing: 0.5px; }
+
+        .hero-structure-row {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 0.9em;
+            font-weight: normal;
+            color: var(--accent-bright);
+            font-style: italic;
+            flex-wrap: wrap;
+        }
+        .separator { color: var(--border-ui); font-style: normal; }
+
+        .hero-text-block { margin-bottom: 30px; }
+
+        .hero-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--accent-bright);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .hero-desc { font-size: 0.95rem; color: var(--text-primary); line-height: 1.5; }
+
+        #about { background-color: #FFFFFF; }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 0.6fr;
+            gap: 40px;
+            align-items: start;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            text-align: left;
+            text-indent: 30px;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        .highlight-text { font-weight: 800; color: #000000; }
+
+        .about-diploma-wrapper img {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: contain;
+            display: block;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0,33,71,0.1);
+        }
+
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
+        .service-card {
+            background: #fff; height: 380px;
+            border-radius: var(--radius-card); position: relative; overflow: hidden;
+            box-shadow: var(--shadow-soft); transition: 0.4s ease; cursor: pointer;
+            border: 1px solid #eee;
+        }
+        .service-card:hover { transform: translateY(-5px); }
+        .service-card img { width: 100%; height: 100%; object-fit: cover; }
+
+        .service-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: linear-gradient(to top, rgba(0,33,71,0.95) 20%, transparent);
+            padding: 60px 30px 30px; color: #fff;
+        }
+        .service-overlay h3 { color: #fff; font-size: 1.5rem; margin-bottom: 8px; text-align: left; }
+        .service-overlay p { color: rgba(255,255,255,0.9); font-size: 1rem; text-align: left; }
+
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .price-card {
+            background: #fff; padding: 40px; border-radius: var(--radius-card);
+            border: 1px solid #eee; text-align: center;
+            box-shadow: var(--shadow-soft); display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .price-val { font-size: 2rem; font-weight: bold; color: var(--accent-bright); margin: 20px 0; font-style: italic; }
+        .price-desc { font-size: 1.1rem; margin-bottom: 30px; color: var(--text-muted); }
+
+        .cert-item { background: transparent; padding: 0; border: none; box-shadow: none; text-align: center; transition: 0.3s; }
+        .cert-item:hover { transform: scale(1.02); z-index: 2; }
+        .cert-item img { width: 100%; height: auto; max-height: 450px; object-fit: contain; display: block; border-radius: 5px; }
+
+        .cert-grid-top{
+            display:grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap:40px;
+            align-items:start;
+            justify-content:center;
+        }
+        .cert-grid-bottom{
+            display:grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap:40px;
+            align-items:start;
+            justify-content:center;
+            margin-top:40px;
+        }
+
+        .reviews-container { position: relative; padding: 0 60px; }
+        .reviews-track {
+            display: flex; gap: 30px; overflow-x: auto; padding: 20px 0;
+            scrollbar-width: none; scroll-behavior: smooth;
+        }
+        .reviews-track::-webkit-scrollbar { display: none; }
+        .review-card {
+            min-width: 350px; max-width: 350px; background: #fff; padding: 10px;
+            border-radius: var(--radius-card); box-shadow: var(--shadow-soft);
+        }
+        .review-card img { width: 100%; border-radius: 10px; display: block; }
+        .slider-btn {
+            position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px;
+            background: var(--accent-core); color: #fff; border: none; border-radius: 50%;
+            font-size: 1.5rem; cursor: pointer; z-index: 2; display: flex; align-items: center; justify-content: center;
+        }
+        .prev-btn { left: 0; }
+        .next-btn { right: 0; }
+
+        .student-slider{
+            position: relative;
+            padding: 0 60px;
+        }
+        .student-track{
+            display:flex;
+            gap: 22px;
+            overflow-x:auto;
+            padding: 20px 0 10px;
+            scrollbar-width:none;
+            scroll-behavior:smooth;
+            scroll-snap-type: x mandatory;
+        }
+        .student-track::-webkit-scrollbar{ display:none; }
+
+        .student-card{
+            min-width: 260px;
+            max-width: 260px;
+            background: #fff;
+            padding: 12px;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid #eee;
+            scroll-snap-align: start;
+        }
+        .student-card img{
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            display:block;
+            object-fit: cover;
+        }
+
+        .student-btn{
+            position:absolute;
+            top: 46%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            background: var(--accent-core);
+            color:#fff;
+            border:none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor:pointer;
+            z-index: 2;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        .student-prev{ left: 0; }
+        .student-next{ right: 0; }
+
+        .student-dots{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .dot{
+            border-radius:999px;
+            border: 1px solid #0B2036;
+            background: #fff;
+            opacity: 1;
+            cursor:pointer;
+            transition: transform .2s ease, background .2s ease;
+            padding:0;
+        }
+        .dot.is-active{
+            background:#0B2036;
+        }
+
+        footer { background: #fff; padding: 80px 0; border-top: 1px solid var(--border-ui); margin-top: 80px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+        .contact-info h3 { font-size: 2rem; margin-bottom: 20px; }
+        .contact-link { display: block; font-size: 1.3rem; margin-bottom: 20px; color: var(--text-primary); text-decoration: none; font-weight: bold; word-wrap: break-word; }
+
+        .socials{
+            display:flex;
+            gap:14px;
+            margin-top:30px;
+            flex-wrap:wrap;
+            align-items:center;
+            justify-content:center;
+        }
+        .social-icon-link{
+            width:42px;
+            height:42px;
+            border-radius:999px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background: rgba(232, 244, 253, 0.95);
+            border: 1px solid #BFD7EF;
+            box-shadow: 0 8px 18px rgba(0,33,71,0.10);
+            transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+            text-decoration:none;
+            overflow: hidden;
+        }
+        .social-icon-link:hover{
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(0,33,71,0.16);
+        }
+        .social-icon-link img{
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            display:block;
+        }
+
+        .form-widget { background: #fff; padding: 40px; border-radius: var(--radius-card); border: 1px solid var(--border-ui); box-shadow: var(--shadow-soft); }
+        .form-title { font-size: 1.8rem; text-align: center; margin-bottom: 10px; font-weight: bold; }
+        .input-group { margin-bottom: 15px; }
+        .input-label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9rem; }
+        .input-field, .input-select, .input-area { width: 100%; padding: 14px; border: 1px solid #C4D9ED; border-radius: 12px; background: #fff; font-family: var(--font-main); font-size: 1rem; color: var(--text-primary); }
+
+        dialog { margin: auto; padding: 0; border: none; background: transparent; width: 95%; max-width: 800px; z-index: 2000; }
+        dialog::backdrop { background: rgba(0,33,71,0.7); backdrop-filter: blur(5px); }
+        .modal-box { background: #fff; padding: 40px 30px; position: relative; border-radius: var(--radius-card); box-shadow: 0 25px 80px rgba(0,0,0,0.4); max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 15px; right: 15px; background: transparent; border: none; outline: none; font-size: 2.5rem; cursor: pointer; color: var(--text-muted); line-height: 0.7; padding: 0; transition: color 0.3s; }
+        .close-modal:hover { color: var(--accent-bright); }
+
+        #doc-system-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+        .shop-text-link{
+            display:inline-block;
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--text-primary);
+            padding-bottom: 2px;
+        }
+        .shop-text-link:hover{ opacity: 0.85; }
+
+        @media (max-width: 1000px) {
+            .about-grid, .pricing-grid, .footer-grid { grid-template-columns: 1fr; }
+            .nav, .header-btn-desktop { display: none; }
+            .mobile-btn { display: block; }
+
+            .logo-container { max-width: 80%; }
+            .logo-img { height: 60px; width: 60px; }
+            .logo-name { font-size: 1.2rem; white-space: normal; line-height: 1.1; }
+            .logo-role { font-size: 1rem; }
+
+            .hero h1 { font-size: 1.4rem; text-align: center; }
+            .hero-structure-row { justify-content: center; gap: 10px; }
+            .hero-content { grid-template-columns: 1fr; padding: 30px 10px; text-align: center; }
+            .hero-text-wrapper { align-items: center; text-align: center; order: 2; }
+            .hero h1::after { margin: 20px auto 0; }
+
+            .hero-img-wrapper { order: 1; margin-bottom: 20px; }
+            .hero-img-wrapper img { max-width: 60%; }
+
+            .services-grid { grid-template-columns: 1fr; }
+
+            .reviews-container { padding: 0; }
+            .slider-btn { display: none; }
+            .reviews-track { padding: 10px 20px; }
+
+            .student-slider { padding: 0; }
+            .student-btn { display:none; }
+            .student-track { padding: 10px 20px; }
+            .student-card{ min-width: 240px; max-width: 240px; }
+
+            .modal-box { padding: 30px 20px; }
+            .form-widget { padding: 30px 20px; }
+
+            .cert-grid-top{ grid-template-columns: 1fr; }
+            .cert-grid-bottom{ grid-template-columns: 1fr; margin-top: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="doc-system-bg"></canvas>
+
+    <header class="header">
+        <div class="container header-row">
+            <a href="#" class="logo-container">
+                <img src="logo.png" alt="Логотип" class="logo-img">
+                <div class="logo-text-block">
+                    <div class="logo-name">Ирина Полухина</div>
+                    <div class="logo-role">документовед</div>
+                </div>
+            </a>
+
+            <nav class="nav">
+                <a href="#about">Обо мне</a>
+                <a href="#services">Услуги</a>
+                <a href="#pricing">Стоимость</a>
+                <a href="#reviews">Отзывы</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+            <a href="#contact" class="btn header-btn-desktop" style="padding:12px 25px; font-size:0.9rem;">Заявка</a>
+
+            <button class="mobile-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#about" class="mobile-link" onclick="toggleMobileMenu()">Обо мне</a>
+            <a href="#services" class="mobile-link" onclick="toggleMobileMenu()">Услуги</a>
+            <a href="#pricing" class="mobile-link" onclick="toggleMobileMenu()">Стоимость</a>
+            <a href="#reviews" class="mobile-link" onclick="toggleMobileMenu()">Отзывы</a>
+            <a href="#contact" class="mobile-link" onclick="toggleMobileMenu()">Контакты</a>
+            <button class="btn" style="width:100%; margin-top:10px;" onclick="toggleMobileMenu(); window.location.href='#contact'">Оставить заявку</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content reveal active">
+            <div class="hero-img-wrapper">
+                <img src="photo_me.jpg" alt="Ирина Полухина - Документовед">
+            </div>
+
+            <div class="hero-text-wrapper">
+                <h1>
+                    <span class="hero-line-main">Делопроизводство и Архив</span>
+                    <span class="hero-structure-row">
+                        <span>ЛЕГКО</span>
+                        <span class="separator">/</span>
+                        <span>ПОНЯТНО</span>
+                        <span class="separator">/</span>
+                        <span>СТРУКТУРНО</span>
+                    </span>
+                </h1>
+
+                <div class="hero-text-block">
+                    <p class="hero-title">Архитектура корпоративного порядка!</p>
+                    <p class="hero-desc">
+                        20 лет опыта: от создания обычного документа (письма, приказа) до разработки номенклатуры дел организации, а также сдачи документов ликвидируемой организации в Главархив.
+                    </p>
+                </div>
+
+                <a href="#contact" class="btn">Получить бесплатную консультацию</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section-padding">
+        <div class="container">
+            <h2 class="reveal">Обо мне</h2>
+            <div class="about-grid reveal">
+                <div class="about-text">
+                    <p>Добрый день!</p>
+                    <p>Меня зовут <span class="highlight-text">Полухина Ирина Евгеньевна</span>.</p>
+                    <p>Я профессиональный документовед и архивист, стаж более 20 лет.</p>
+                    <p>С 2002 года я прошла путь от секретаря до Руководителя общего отдела в крупной энергетической компании (2007-2021).</p>
+                    <p><span class="highlight-text">Моя миссия</span> - превратить хаос в документах в стройную, понятную систему.</p>
+                    <p><span class="highlight-text">Образование:</span> Историко - архивный институт.</p>
+                    <p><span class="highlight-text">Практика:</span> Разработка документов любой сложности (от письма до номенклатуры дел организации).</p>
+                    <p><span class="highlight-text">Технологии:</span> Дело, PayDoх, ЕОСДО, 1С:Документооборот, Directum.</p>
+                </div>
+
+                <div class="about-diploma-wrapper">
+                    <img src="cert_1.jpg" alt="Диплом" class="about-cert-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section-padding">
+        <div class="container">
+            <h2 class="reveal">Мои услуги</h2>
+            <div class="services-grid reveal">
+                <div class="service-card" onclick="openServiceDetail('audit')">
+                    <img src="service_audit.jpg" alt="Аудит">
+                    <div class="service-overlay"><h3>Аудит делопроизводства</h3><p></p></div>
+                </div>
+
+                <div class="service-card" onclick="openServiceDetail('lna')">
+                    <img src="service_lna.jpg" alt="ЛНА">
+                    <div class="service-overlay"><h3>Разработка локально-нормативных актов</h3><p>Внутренние документы компании по ТК РФ</p></div>
+                </div>
+
+                <div class="service-card" onclick="openServiceDetail('archive')">
+                    <img src="service_archive.jpg" alt="Архив">
+                    <div class="service-overlay"><h3>Архивная обработка документов</h3><p>Систематизация, сортировка и организация хранения</p></div>
+                </div>
+
+                <div class="service-card" onclick="openServiceDetail('search')">
+                    <img src="service_search.jpg" alt="Поиск">
+                    <div class="service-overlay"><h3>Поиск документов</h3><p>Восстановление утерянных документов через архивы РФ</p></div>
+                </div>
+
+                <div class="service-card" onclick="openServiceDetail('consult')">
+                    <img src="service_edu.jpg" alt="Консультирование">
+                    <div class="service-overlay"><h3>Консультирование</h3><p>Секретари, делопроизводители, помощники руководителей</p></div>
+                </div>
+
+                <div class="service-card" onclick="openServiceDetail('edo')">
+                    <img src="service_edo.jpg" alt="ЭДО">
+                    <div class="service-overlay"><h3>Внедрение системы электронного документооборота</h3><p>Переход от бумажного к электронному порядку</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="section-padding">
+        <div class="container">
+            <h2 class="reveal">Стоимость услуг</h2>
+            <div class="pricing-grid reveal">
+                <div class="price-card">
+                    <h3>Экспресс-консультация</h3>
+                    <div class="price-val">1 500 ₽</div>
+                    <div class="price-desc">30 минут онлайн. Ответы на конкретные вопросы по срокам хранения, оформлению приказов или работе с архивом.</div>
+                    <button class="btn" onclick="scrollToForm('Консультация')" style="width:100%">Записаться</button>
+                </div>
+                <div class="price-card">
+                    <h3>Аудит документов</h3>
+                    <div class="price-val">от 35 000 ₽</div>
+                    <div class="price-desc">Отчёт и план исправлений.</div>
+                    <button class="btn" onclick="scrollToForm('Аудит делопроизводства')" style="width:100%">Заказать</button>
+                </div>
+                <div class="price-card">
+                    <h3>Архив "под ключ"</h3>
+                    <div class="price-val">от 500 ₽/дело</div>
+                    <div class="price-desc">Полная обработка документов: экспертиза ценности, формирование дел, переплет, составление описей.</div>
+                    <button class="btn" onclick="scrollToForm('Архивное дело')" style="width:100%">Рассчитать</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="reveal">Дипломы и Сертификаты</h2>
+
+            <div class="cert-grid-top reveal">
+                <div class="cert-item"><img src="cert_1.jpg" alt="Сертификат 1"></div>
+                <div class="cert-item"><img src="cert_4.jpg" alt="Сертификат 4"></div>
+            </div>
+
+            <div class="cert-grid-bottom reveal">
+                <div class="cert-item"><img src="cert_2.jpg" alt="Сертификат 2"></div>
+                <div class="cert-item"><img src="cert_3.jpg" alt="Сертификат 3"></div>
+                <div class="cert-item"><img src="cert_5.jpg" alt="Сертификат 5"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="section-padding" style="background:#fff;">
+        <div class="container">
+            <h2 class="reveal">Отзывы клиентов (поиск документов)</h2>
+            <div class="reviews-container reveal">
+                <button class="slider-btn prev-btn" onclick="scrollReviews(-340)">&#8249;</button>
+                <div class="reviews-track" id="reviewsTrack">
+                    <div class="review-card"><img src="review_1.jpg" alt="Отзыв 1"></div>
+                    <div class="review-card"><img src="review_2.jpg" alt="Отзыв 2"></div>
+                    <div class="review-card"><img src="review_3.jpg" alt="Отзыв 3"></div>
+                </div>
+                <button class="slider-btn next-btn" onclick="scrollReviews(340)">&#8250;</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding" style="background:#F2F9FF;">
+        <div class="container">
+            <h2 class="reveal">Отзывы учеников</h2>
+
+            <div class="student-slider reveal">
+                <button class="student-btn student-prev" onclick="moveStudent(-1)">&#8249;</button>
+
+                <div class="student-track" id="studentTrack">
+                    <div class="student-card"><img src="student_1.jpg" alt="Отзыв ученика 1"></div>
+                    <div class="student-card"><img src="student_2.jpg" alt="Отзыв ученика 2"></div>
+                    <div class="student-card"><img src="student_3.jpg" alt="Отзыв ученика 3"></div>
+                    <div class="student-card"><img src="student_4.jpg" alt="Отзыв ученика 4"></div>
+                    <div class="student-card"><img src="student_5.jpg" alt="Отзыв ученика 5"></div>
+                    <div class="student-card"><img src="student_6.jpg" alt="Отзыв ученика 6"></div>
+                </div>
+
+                <button class="student-btn student-next" onclick="moveStudent(1)">&#8250;</button>
+
+                <div class="student-dots" id="studentDots" aria-label="Пагинация отзывов учеников"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+
+                <div class="contact-info">
+                    <h3 style="text-align:center;">Давайте наведем порядок!</h3>
+
+                    <p style="margin-bottom:10px; font-size:1.1rem; text-align:center;">
+                        Готова ответить на Ваши вопросы и обсудить детали заказа.
+                    </p>
+                    <p style="margin-bottom:20px; font-size:1.1rem; text-align:center;">
+                        Работаю по договору, конфиденциальность гарантирую.
+                    </p>
+
+                    <div style="text-align:center; margin-bottom:12px; font-size:1.05rem;">
+                        Электронная почта для связи:
+                    </div>
+                    <a href="mailto:15.09.19.76@mail.ru" class="contact-link" style="text-align:center; margin:0 auto 10px;">
+                        15.09.19.76@mail.ru
+                    </a>
+
+                    <div style="text-align:center; margin-top:18px;">
+                        <a class="shop-text-link" href="https://doc-normativ.shop" target="_blank" rel="noopener">doc-normativ.shop</a>
+                    </div>
+
+                    <div class="socials">
+                        <a href="https://dzen.ru/doc-normativ.shop?share_to=link" target="_blank" class="social-icon-link" aria-label="Dzen" title="Dzen" rel="noopener">
+                            <img src="icon-dzen.png" alt="">
+                        </a>
+                        <a href="https://m.tenchat.ru/u/mDml4dir" target="_blank" class="social-icon-link" aria-label="TenChat" title="TenChat" rel="noopener">
+                            <img src="icon-tenchat.png" alt="">
+                        </a>
+                        <a href="https://profi.ru/profile/PoluhinaIE" target="_blank" class="social-icon-link" aria-label="Profi.ru" title="Profi.ru" rel="noopener">
+                            <img src="icon-profi.png" alt="">
+                        </a>
+                        <a href="https://instagram.com/doc_sozdat" target="_blank" class="social-icon-link" aria-label="Instagram" title="Instagram" rel="noopener">
+                            <img src="icon-instagram.png" alt="">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="form-widget">
+                    <div class="form-title">Оставить заявку</div>
+                    <div class="form-sub">Бесплатный экспресс-анализ ситуации</div>
+                    <form id="footerForm">
+                        <div class="input-group">
+                            <label class="input-label">Что вас интересует?</label>
+                            <select id="req_service" class="input-select">
+                                <option value="Консультация">Нужна консультация</option>
+                                <option value="Аудит делопроизводства">Аудит документов</option>
+                                <option value="Разработка локально-нормативных актов">Разработка ЛНА</option>
+                                <option value="Архивное дело">Сдача в архив / Уничтожение</option>
+                                <option value="Поиск документов">Поиск документов</option>
+                                <option value="Внедрение системы электронного документооборота">Внедрение ЭДО</option>
+                                <option value="Консультирование">Консультирование</option>
+                                <option value="Другое">Другой вопрос</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Как с вами связаться?</label>
+                            <input type="text" id="req_contact" class="input-field" placeholder="Телефон или Telegram" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Опишите задачу</label>
+                            <textarea id="req_message" class="input-area" rows="3" placeholder="Например: нужно сдать документы ликвидируемой фирмы..."></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width:100%;">Отправить</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div style="text-align:center; margin-top:80px; color:#999; font-size:0.9rem; border-top:1px solid #eee; padding-top:30px;">
+                © 2025. Полухина Ирина Евгеньевна. Архитектура корпоративного порядка.
+            </div>
+        </div>
+    </footer>
+
+    <dialog id="modalAnketa">
+        <div class="modal-box">
+            <button class="close-modal" onclick="document.getElementById('modalAnketa').close()">×</button>
+            <h3 style="text-align:center; margin-bottom:20px; font-size:1.8rem;">Анкета участника обучения</h3>
+            <form id="formAnketa">
+                <div style="display:grid; grid-template-columns:1fr; gap:15px;">
+                    <input type="text" id="ank_fio" class="input-field" placeholder="ФИО" required>
+                    <input type="text" id="ank_pos" class="input-field" placeholder="Текущая должность">
+                    <input type="text" id="ank_age" class="input-field" placeholder="Возраст">
+                    <input type="email" id="ank_email" class="input-field" placeholder="E-mail" required>
+                    <input type="tel" id="ank_phone" class="input-field" placeholder="Телефон" required>
+                    <input type="text" id="ank_city" class="input-field" placeholder="Город">
+                    <textarea id="ank_problems" class="input-area" rows="2" placeholder="С какими трудностями сталкиваетесь в работе?"></textarea>
+                    <textarea id="ank_topics" class="input-area" rows="2" placeholder="Какие темы хотите изучить глубже?"></textarea>
+                    <textarea id="ank_about" class="input-area" rows="2" placeholder="Ваши ожидания от курса"></textarea>
+                </div>
+                <button type="submit" class="btn" style="width:100%; margin-top:20px;">Отправить анкету</button>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id="serviceModal">
+        <div class="modal-box">
+            <button class="close-modal" onclick="document.getElementById('serviceModal').close()">×</button>
+            <h3 id="srvTitle" style="font-size:2rem; margin-bottom:15px; color:var(--accent-core);"></h3>
+            <p id="srvDesc" style="font-size:1.2rem; margin-bottom:20px; color:var(--text-primary);"></p>
+            <ul id="srvList" style="margin-bottom:30px; font-size:1.1rem; padding-left:20px; line-height:1.8;"></ul>
+            <button class="btn" id="srvActionBtn" style="width:100%;">Действие</button>
+        </div>
+    </dialog>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        document.querySelector('.hero-content').classList.add('active');
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        function scrollReviews(amount) {
+            document.getElementById('reviewsTrack').scrollBy({ left: amount, behavior: 'smooth' });
+        }
+
+        const services = {
+            'audit': {
+                title: 'Аудит делопроизводства',
+                desc: 'ЭТО комплексная проверка и анализ всей системы работы с документами в организации, что повысит общую эффективность управления организацией.',
+                list: [
+                    'Что проверяется:',
+                    'Кадровое делопроизводство (КДП): трудовые договоры, приказы, личные карточки, табели учета рабочего времени, графики отпусков, журналы инструктажей.',
+                    'Организационно-распорядительная документация (ОРД): приказы, распоряжения, служебные записки, протоколы.',
+                    'Локальные нормативные акты (ЛНА): положения, инструкции, правила внутреннего трудового распорядка.',
+                    'Процессы документооборота: сроки хранения, порядок регистрации, движения документов, их номенклатура.',
+                    'Зачем это нужно:',
+                    'Минимизация рисков: предотвращение штрафов, судебных исков, приостановки деятельности компании.',
+                    'Подготовка к проверкам: гарантия соответствия документации требованиям контролирующих органов.',
+                    'Оптимизация процессов: повышение эффективности и прозрачности работы с документами.',
+                    'Объективная оценка: получение достоверной информации о текущем состоянии системы.',
+                    'Основные этапы:',
+                    'Планирование (определение целей, разработка плана).',
+                    'Проведение (анализ документов, беседы с сотрудниками).',
+                    'Подготовка отчета (составление заключения о нарушениях, оценке рисков и рекомендаций).',
+                    'Устранение замечаний (корректировка процессов, «узаконивание» новой практики).'
+                ]
+            },
+            'archive': {
+                title: 'Архивная обработка документов',
+                desc: 'ЭТО систематизация, сортировка, организация хранения и уничтожение документов, которые возникли в организации.',
+                list: [
+                    'Некоторые этапы архивной обработки документов:',
+                    'Экспертиза ценности документов — определяется ценность документов и сроки хранения.',
+                    'Систематизация документов и формирование дел — документы делятся по видам, годам, срокам хранения.',
+                    'Описание и оформление дел — это подшивка или переплёт дела (папки корона), нумерацию листов, составление заверительной надписи, внутренней описи документов, оформление обложки дела (папки).',
+                    'Создание описей — после оформления дел составляется их опись (перечень из заголовков дел (папок)) и в некоторых случаях — историческая справка к архивному фонду и другие документы (при ликвидации организации).'
+                ]
+            },
+            'search': {
+                title: 'Поиск документов',
+                desc: 'Восстановление утерянных документов через государственные архивы РФ.',
+                list: [
+                    'Поиск архивных справок, выписок, копий документов.',
+                    'Установление факта (рождения, родства, трудового стажа, проживания и т.д.).',
+                    'Подготовка запросов в архивные учреждения.',
+                    'Консультирую по поиску документов.'
+                ]
+            },
+
+            /* ОБНОВЛЕНО: ТЕКСТ ДЛЯ ЛНА (структурно как было: desc + list) */
+            'lna': {
+                title: 'Разработка локально-нормативных актов',
+                desc: 'Это процесс создания внутренних документов компании (правил, положений, инструкций) для регулирования трудовых отношений в соответствии с ТК РФ.',
+                list: [
+                    '1. Инструкции по делопроизводству с СЭД и без.',
+                    '2. Положение об отделе.',
+                    '3. Должностные инструкции.',
+                    'Зачем нужны ЛНА',
+                    '• Защищают работодателя при проверках трудовой инспекции и в суде.',
+                    '• Упорядочивают работу, делают правила прозрачными и понятными для всех.',
+                    '• Снижают риски штрафов и споров.'
+                ]
+            },
+
+            'edo': {
+                title: 'Внедрение системы электронного документооборота',
+                desc: 'Помощь в переходе от бумажного захламления к электронному порядку.',
+                list: [
+                    'Анализ бизнес-процессов в организации для их автоматизации.',
+                    'Описание маршрутов согласования документов.',
+                    'Разработка инструкций с описанием процессов и работы с ними в системе.',
+                    'Обучение сотрудников по работе в системе электронного документооборота.'
+                ]
+            },
+            'consult': {
+                title: 'Консультирование',
+                desc: 'Консультирование секретарей, делопроизводителей, помощников руководителей.',
+                list: [
+                    'Вебинар «Нормативно-методические документы по делопроизводству и архиву».',
+                    'Марафон: «Пишем деловые письма».',
+                    'Марафон: «Создание шаблонов бланков документов».',
+                    'Индивидуальное наставничество.',
+                    'Разбор сложных кейсов.'
+                ]
+            }
+        };
+
+        function openServiceDetail(id) {
+            const data = services[id];
+            document.getElementById('srvTitle').innerText = data.title;
+            document.getElementById('srvDesc').innerText = data.desc;
+
+            const ul = document.getElementById('srvList');
+            ul.innerHTML = '';
+            data.list.forEach(item => ul.innerHTML += `<li>♦ ${item}</li>`);
+
+            const btn = document.getElementById('srvActionBtn');
+            btn.innerText = 'Оставить заявку';
+            btn.onclick = () => { document.getElementById('serviceModal').close(); scrollToForm(data.title); };
+
+            document.getElementById('serviceModal').showModal();
+        }
+
+        function scrollToForm(serviceName) {
+            const select = document.getElementById('req_service');
+            select.value = serviceName;
+            if(select.value !== serviceName) select.value = 'Другое';
+            document.getElementById('contact').scrollIntoView({behavior: 'smooth'});
+        }
+
+        const TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN';
+        const CHAT_ID = 'YOUR_CHAT_ID';
+
+        async function sendTg(text) {
+            try {
+                await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({chat_id: CHAT_ID, text: text, parse_mode: 'HTML'})
+                });
+                alert('Ваша заявка успешно отправлена! Я свяжусь с вами в ближайшее время.');
+            } catch(e) { alert('Ошибка отправки. Пожалуйста, напишите на email.'); }
+        }
+
+        document.getElementById('footerForm').onsubmit = (e) => {
+            e.preventDefault();
+            const s = document.getElementById('req_service').value;
+            const c = document.getElementById('req_contact').value;
+            const m = document.getElementById('req_message').value;
+            sendTg(`📩 <b>ЗАЯВКА С САЙТА</b>\n\n📂 Услуга: ${s}\n📞 Контакт: ${c}\n❓ Суть: ${m}`);
+            e.target.reset();
+        };
+
+        document.getElementById('formAnketa').onsubmit = (e) => {
+            e.preventDefault();
+            const f = document.getElementById('ank_fio').value;
+            const ph = document.getElementById('ank_phone').value;
+            sendTg(`🎓 <b>АНКЕТА УЧЕНИКА</b>\n\n👤 ФИО: ${f}\n📞 Тел: ${ph}\n(Подробные данные в системе)`);
+            document.getElementById('modalAnketa').close();
+            e.target.reset();
+        };
+
+        const studentTrack = document.getElementById('studentTrack');
+        const studentDotsWrap = document.getElementById('studentDots');
+        const studentCards = Array.from(studentTrack.querySelectorAll('.student-card'));
+        let studentIndex = 0;
+
+        function getStudentStep() {
+            const first = studentCards[0];
+            if(!first) return 0;
+            const styles = window.getComputedStyle(studentTrack);
+            const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+            return first.getBoundingClientRect().width + gap;
+        }
+
+        function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
+
+        function renderStudentDots() {
+            studentDotsWrap.innerHTML = '';
+            const total = studentCards.length;
+
+            const minSize = 6;
+            const maxSize = 14;
+            for (let i = 0; i < total; i++) {
+                const t = total <= 1 ? 0 : i / (total - 1);
+                const size = Math.round(minSize + (maxSize - minSize) * t);
+
+                const b = document.createElement('button');
+                b.className = 'dot' + (i === studentIndex ? ' is-active' : '');
+                b.style.width = size + 'px';
+                b.style.height = size + 'px';
+                b.setAttribute('type', 'button');
+                b.setAttribute('aria-label', `Отзыв ${i + 1}`);
+                b.onclick = () => goToStudent(i);
+                studentDotsWrap.appendChild(b);
+            }
+        }
+
+        function goToStudent(i) {
+            const total = studentCards.length;
+            studentIndex = clamp(i, 0, total - 1);
+            const step = getStudentStep();
+            studentTrack.scrollTo({ left: studentIndex * step, behavior: 'smooth' });
+            renderStudentDots();
+        }
+
+        function moveStudent(dir) {
+            goToStudent(studentIndex + dir);
+        }
+
+        function syncStudentIndexFromScroll() {
+            const step = getStudentStep();
+            if(step <= 0) return;
+            const idx = Math.round(studentTrack.scrollLeft / step);
+            const next = clamp(idx, 0, studentCards.length - 1);
+            if (next !== studentIndex) {
+                studentIndex = next;
+                renderStudentDots();
+            }
+        }
+
+        studentTrack.addEventListener('scroll', () => {
+            window.requestAnimationFrame(syncStudentIndexFromScroll);
+        });
+
+        renderStudentDots();
+
+        const canvas = document.getElementById('doc-system-bg');
+        const ctx = canvas.getContext('2d');
+        let w, h;
+        function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+        window.onresize = resize; resize();
+
+        class DocBlock {
+            constructor() { this.init(); }
+            init() {
+                this.w = 150 + Math.random()*100; this.h = 40 + Math.random()*40;
+                this.x = Math.random()*(w-this.w); this.y = Math.random()*(h-this.h);
+                this.life=0; this.maxLife=200+Math.random()*200; this.opacity=0; this.state='in';
+            }
+            update() {
+                if(this.state==='in') { this.opacity+=0.01; if(this.opacity>=0.5) this.state='hold'; }
+                else if(this.state==='hold') { this.life++; if(this.life>this.maxLife) this.state='out'; }
+                else { this.opacity-=0.01; if(this.opacity<=0) this.init(); }
+            }
+            draw() {
+                ctx.fillStyle=`rgba(0,33,71,${0.05*this.opacity})`; ctx.strokeStyle=`rgba(0,33,71,${0.1*this.opacity})`;
+                ctx.beginPath(); ctx.roundRect(this.x,this.y,this.w,this.h,4); ctx.fill(); ctx.stroke();
+                ctx.fillStyle=`rgba(0,33,71,${0.1*this.opacity})`;
+                ctx.fillRect(this.x+10,this.y+10,this.w-20,4); ctx.fillRect(this.x+10,this.y+20,this.w*0.6,4);
+            }
+        }
+        const blocks = Array.from({length:5}, ()=>new DocBlock());
+        function animate() {
+            ctx.clearRect(0,0,w,h);
+            ctx.strokeStyle='rgba(0,33,71,0.03)'; ctx.lineWidth=1; ctx.beginPath();
+            for(let x=0;x<w;x+=60){ctx.moveTo(x,0);ctx.lineTo(x,h);}
+            for(let y=0;y<h;y+=60){ctx.moveTo(0,y);ctx.lineTo(w,y);}
+            ctx.stroke();
+            blocks.forEach(b=>{b.update();b.draw();});
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
